@@ -1,10 +1,17 @@
-import { Stack } from 'expo-router';
+import { AuthProvider } from "@/contexts/AuthContext";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { colors } from "../constants/theme";
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-    </Stack>
+    <AuthProvider>
+      <StatusBar style="light" backgroundColor={colors.background} />
+      <Stack screenOptions={{ headerShown: false }} initialRouteName="login">
+        <Stack.Screen name="index" />
+        <Stack.Screen name="login" />
+        <Stack.Screen name="(authenticated)" />
+      </Stack>
+    </AuthProvider>
   );
 }
